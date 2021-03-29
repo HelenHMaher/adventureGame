@@ -12,6 +12,8 @@ public class Enemy {
     String deathCry;
     String victoryCry;
 
+    Random rand = new Random();
+
     int[] maxHealthOptions = { 50, 40, 40, 70, 20, 500, 40, 80, 60, 20 };
 
     int[] enemyAttackDamageOptions = { 20, 20, 20, 30, 30, 40, 40, 20, 50, 10 };
