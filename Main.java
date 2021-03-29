@@ -110,6 +110,7 @@ public class Main {
             }
         }
         // game over
+        in.close();
         System.out.println("######################");
         System.out.println("# THANKS FOR PLAYING #");
         System.out.println("######################");
