@@ -1,11 +1,14 @@
 package adventureGame;
 
 import java.util.Random;
+import java.lang.Math;
 
 public class Enemy {
-
+        int type;
         int health;
+        int magic;
         int attackDamage;
+        int currentAttackDamage;
         String enemyType;
         String specialAttack;
         String mainAttack;
@@ -14,7 +17,9 @@ public class Enemy {
 
         Random rand = new Random();
 
-        int[] maxHealthOptions = { 50, 40, 40, 70, 20, 500, 40, 80, 60, 20 };
+        int[] maxHealthOptions = { 100, 100, 100, 70, 100, 500, 80, 80, 80, 90 };
+
+        int[] maxMagicOptions = { 70, 20, 20, 20, 80, 600, 20, 100, 100, 50 };
 
         int[] enemyAttackDamageOptions = { 20, 20, 20, 30, 30, 40, 40, 20, 50, 10 };
 
@@ -44,9 +49,10 @@ public class Enemy {
                         "AAaRrrrBbbRAraaaIINnnnSSss!!!", "THE EXPERIMENT!!!!" };
 
         public Enemy() {
-                int type = rand.nextInt(enemyTypeOptions.length);
+                type = rand.nextInt(enemyTypeOptions.length);
 
                 health = rand.nextInt(maxHealthOptions[type]);
+                magic = rand.nextInt(maxMagicOptions[type]);
                 attackDamage = rand.nextInt(enemyAttackDamageOptions[type]);
                 enemyType = enemyTypeOptions[type];
                 specialAttack = specialAttackOptions[type];
@@ -57,6 +63,24 @@ public class Enemy {
 
         public void takeDamage(int damageDealt) {
                 health -= damageDealt;
+        }
+
+        public String getAttack() {
+                double diceRoll = Math.random();
+                if (magic > 10) {
+                        double healthMultiplier = (maxHealthOptions[type] - health) / health;
+                        double usesMagicChance = healthMultiplier * diceRoll;
+                        if (usesMagicChance > .2) {
+                                currentAttackDamage = (int) Math.floor(diceRoll * attackDamage) * 2;
+                                return specialAttack;
+                        }
+                }
+                currentAttackDamage = (int) Math.floor(diceRoll * attackDamage);
+                return mainAttack;
+        }
+
+        public int getAttackDamage() {
+                return currentAttackDamage;
         }
 
         public static void main(String[] args) {

@@ -38,15 +38,16 @@ public class Main {
 
                 String input = in.nextLine();
                 if (input.equals("1")) {
+                    String enemyAttack = enemy.getAttack();
                     int damageDealt = rand.nextInt(attackDamage);
-                    int damageTaken = rand.nextInt(enemy.attackDamage);
+                    int damageTaken = enemy.getAttackDamage();
 
                     enemy.takeDamage(attackDamage);
                     health -= damageTaken;
 
                     System.out.println("\t> You strike the " + enemy.enemyType + " for " + damageDealt + " damage.");
-                    System.out.println("\t> The " + enemy.enemyType + " " + enemy.mainAttack
-                            + " in retaliation!  You take " + enemy.attackDamage + " in damage.");
+                    System.out.println("\t> The " + enemy.enemyType + " " + enemyAttack + " in retaliation!  You take "
+                            + damageTaken + " in damage.");
 
                     if (health < 1) {
                         System.out.println("\t> You have taken too much damage, you are too weak to go on.");
