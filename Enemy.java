@@ -9,6 +9,7 @@ public class Enemy {
         int magic;
         int attackDamage;
         int currentAttackDamage;
+        int healthPotionDropChance;
         String enemyType;
         String specialAttack;
         String mainAttack;
@@ -22,6 +23,8 @@ public class Enemy {
         int[] maxMagicOptions = { 70, 20, 20, 20, 80, 600, 20, 100, 100, 50 };
 
         int[] enemyAttackDamageOptions = { 20, 20, 20, 30, 30, 40, 40, 20, 50, 10 };
+
+        int[] healthPotionDropChanceOptions = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
 
         String[] enemyTypeOptions = { "fire-spitting lizard", "giant slug", "rodent of unusual size",
                         "swarm of high-pitched screeming spiders", "golumn", "lost porkupine", "poisonus moth",
@@ -59,6 +62,8 @@ public class Enemy {
                 mainAttack = mainAttackOptions[type];
                 deathCry = deathCryOptions[type];
                 victoryCry = victoryCryOptions[type];
+                healthPotionDropChance = healthPotionDropChanceOptions[type];
+
         }
 
         public void takeDamage(int damageDealt) {
@@ -67,10 +72,11 @@ public class Enemy {
 
         public String getAttack() {
                 double diceRoll = Math.random();
-                if (magic > 10) {
+                if (magic >= 10) {
                         double healthMultiplier = (maxHealthOptions[type] - health) / health;
                         double usesMagicChance = healthMultiplier * diceRoll;
                         if (usesMagicChance > .2) {
+                                magic -= 10;
                                 currentAttackDamage = (int) Math.floor(diceRoll * attackDamage) * 2;
                                 return specialAttack;
                         }
