@@ -1,11 +1,7 @@
 package adventureGame;
 
-import java.lang.Math;
-import java.util.Random;
-
 public class Barbarian extends Player {
     public Barbarian() {
-        Random rand = new Random();
         type = "barbarian";
         health = 120;
         magic = 120;
