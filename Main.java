@@ -10,11 +10,6 @@ public class Main {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
 
-        // Game variables
-        String[] enemies = { "Skeleton", "Vampire", "Werewolf", "Bog Monster" };
-        int maxEnemyHealth = 100;
-        int enemyAttackDamage = 25;
-
         // Player variables
         int health = 100;
         int attackDamage = 30;
@@ -29,14 +24,13 @@ public class Main {
         GAME: while (running) {
             System.out.println("----------------------------------------");
 
-            int enemyHealth = rand.nextInt(maxEnemyHealth);
-            String enemy = enemies[rand.nextInt(enemies.length)];
-            System.out.println("\t# " + enemy + " has appeared! #\n");
+            Enemy enemy = new Enemy();
+            System.out.println("\t# A " + enemy.enemyType + " has appeared! #\n");
             // # Skeletron has appeared! #
 
-            while (enemyHealth > 0) {
+            while (enemy.health > 0) {
                 System.out.println("\tYour HP: " + health);
-                System.out.println("\t" + enemy + "'s HP: " + enemyHealth);
+                System.out.println("\t" + enemy.enemyType + "'s HP: " + enemy.health);
                 System.out.println("\n\tWhat would you like to do?");
                 System.out.println("\t1. Attack");
                 System.out.println("\t2. Drink health potion");
@@ -45,13 +39,14 @@ public class Main {
                 String input = in.nextLine();
                 if (input.equals("1")) {
                     int damageDealt = rand.nextInt(attackDamage);
-                    int damageTaken = rand.nextInt(enemyAttackDamage);
+                    int damageTaken = rand.nextInt(enemy.attackDamage);
 
-                    enemyHealth -= damageDealt;
+                    enemy.takeDamage(attackDamage);
                     health -= damageTaken;
 
-                    System.out.println("\t> You strike the " + enemy + " for " + damageDealt + " damage.");
-                    System.out.println("\t> You recieve " + damageTaken + " damage in retaliation!");
+                    System.out.println("\t> You strike the " + enemy.enemyType + " for " + damageDealt + " damage.");
+                    System.out.println("\t> The " + enemy.enemyType + " " + enemy.mainAttack
+                            + " in retaliation!  You take " + enemy.attackDamage + " in damage.");
 
                     if (health < 1) {
                         System.out.println("\t> You have taken too much damage, you are too weak to go on.");
@@ -70,7 +65,7 @@ public class Main {
                                 "\t> You have no health potions left!  Defeat enemies for a chance to get one!");
                     }
                 } else if (input.equals("3")) {
-                    System.out.println("\tYou run away from the " + enemy + "!");
+                    System.out.println("\tYou run away from the " + enemy.enemyType + "!");
                     // we want to go to the top of the GAME loop
                     continue GAME;
                 } else {
@@ -79,15 +74,17 @@ public class Main {
             }
             // you have died
             if (health < 1) {
-                System.out.println("You limp out of the dungeon, weak from battle.");
+                System.out.println("The " + enemy.enemyType + " lets out a shrill cry, \"" + enemy.victoryCry
+                        + ",\" as you retreat.  Defeated, you limp out of the dungeon, weak from battle.");
                 break;
             }
             System.out.println("----------------------------------------");
-            System.out.println(" # " + enemy + " was defeated! #");
+            System.out.println(" # The " + enemy.enemyType + " lets out a sad final death rattle, \"" + enemy.deathCry
+                    + "\" before falling still.  You were victorious! #");
             System.out.println(" # You have " + health + " HP left #");
             if (rand.nextInt(100) < healthPotionDropChance) {
                 numHealthPotions++;
-                System.out.println(" # The " + enemy + " dropped a health potion! #");
+                System.out.println(" # The " + enemy.enemyType + " dropped a health potion! #");
                 System.out.println(" # You now have " + numHealthPotions + " health potion(s). #");
             }
             System.out.println("----------------------------------------");

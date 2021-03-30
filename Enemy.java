@@ -35,19 +35,22 @@ public class Enemy {
                         "flies around your head until you are too dizy to keep your balance and you fall over",
                         "rushes you dramatically", "spits stomach acid at you", "spits in your general direction" };
 
-        String[] deathCryOptions = { "eeeeeeeeeeeeeee...", "ffffffffffff...", "uuuuugh...", "EEiiiieeeEEEIIieee...",
-                        "golump...", "whoopwhoopwhoop...", "ggrrroooooooorrrr...", "aaarrrrbbbraraaaiinnnnsss...",
-                        "the... experiment..." };
+        String[] deathCryOptions = { "eeeeeeeeeeeeeee...", "ffffffffffff...", "wwwweeeeeeeeiiiiiii....",
+                        "EEiiiieeeEEEIIieee...", "uuuuugh...", "golump...", "whoopwhoopwhoop...",
+                        "ggrrroooooooorrrr...", "aaarrrrbbbraraaaiinnnnsss...", "the... experiment..." };
 
-        String[] victoryCryOptions = { "EEEEEEEEE!!!!!", "FFFFFFFFF!!!", "UUUuugh!!!", "EEiiiieeeEEEIIieee!!!",
-                        "GOLUMP!!", "WhoopWhoopWhoop!!!", "GGrrroooooooorrrr!!", "AAaRrrrBbbRAraaaIINnnnSSss!!!",
-                        "THE EXPERIMENT!!!!" };
+        String[] victoryCryOptions = { "EEEEEEEEE!!!!!", "FFFFFFFFF!!!", "WWWWWEEEEEEEIIiiiiiiii!!!",
+                        "EEiiiieeeEEEIIieee!!!", "UUUuugh!!!", "GOLUMP!!", "WhoopWhoopWhoop!!!", "GGrrroooooooorrrr!!",
+                        "AAaRrrrBbbRAraaaIINnnnSSss!!!", "THE EXPERIMENT!!!!" };
 
-        public Enemy(int type) {
+        public Enemy() {
+                int type = rand.nextInt(enemyTypeOptions.length);
+
                 health = rand.nextInt(maxHealthOptions[type]);
                 attackDamage = rand.nextInt(enemyAttackDamageOptions[type]);
                 enemyType = enemyTypeOptions[type];
                 specialAttack = specialAttackOptions[type];
+                mainAttack = mainAttackOptions[type];
                 deathCry = deathCryOptions[type];
                 victoryCry = victoryCryOptions[type];
         }
