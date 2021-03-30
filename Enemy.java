@@ -82,8 +82,4 @@ public class Enemy {
         public int getAttackDamage() {
                 return currentAttackDamage;
         }
-
-        public static void main(String[] args) {
-
-        }
 }
